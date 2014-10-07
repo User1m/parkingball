@@ -32,18 +32,24 @@ function initialize() {
   }
   // google.maps.event.addDomListener(window, 'load', initialize);
 
+  /*
+  * Method geocodes an address and returns it
+  */
+
   function geoCode(start){
-    var ret;
+    var address;
     var geocoder = new google.maps.Geocoder();
 
     geocoder.geocode({'address' : start},function(results, status){
       if(status == google.maps.GeocoderStatus.OK){
-        var address = results[0].geometry.location;
+        address = results[0].geometry.location;
         map.setCenter(address);
         var marker = new google.maps.Marker({
           map: map,
           position: address
         });
+
+        return address;
 
       }else{
         alert("Could not find that start address for the following reason: "+status);
@@ -51,6 +57,9 @@ function initialize() {
     });
   }
 
+  /*
+  * Method calcualtes a route from start to destinaion
+  */
 
   function calcRoute(){
 
@@ -75,6 +84,36 @@ function initialize() {
     });
 
   }
+
+
+  /*
+  * Function to retrieve data
+  */
+
+  function getData(dest){
+
+    $.ajax({
+      url: "http://api.parkwhiz.com/search/?destination="+dest+"&key=12189e4e3e18fd94d513a6c77f5fd621",
+      type: "GET",
+      dataType : "json",
+      success : predictParking,
+      failure : function(){
+        console.log("getData failed!");
+      }
+    });
+
+  }
+
+  /*
+  * Method predicts the availability of parking around a destinaion
+  */
+  function predictParking(result){
+
+
+
+  }
+
+
 
   window.addEventListener('load', function(){
 
