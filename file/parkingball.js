@@ -66,22 +66,41 @@ function initialize() {
     //get route info
     var start = document.getElementById('start').value;
     var end = document.getElementById('end').value;
+    var time = document.getElementById('time').value;
 
+      //form request
+      var request = {
+        origin: start,
+        destination: end,
+        travelMode: google.maps.TravelMode.DRIVING
+      };
 
-    //form request
-    var request = {
-      origin: start,
-      destination: end,
-      travelMode: google.maps.TravelMode.DRIVING
-    };
-
-    //make service request for route
-    dirService.route(request, function(result, status){
+      //make service request for route
+      dirService.route(request, function(result, status){
       //if ok the show route
       if(status == google.maps.DirectionsStatus.OK){
         dirDisplay.setDirections(result);
       }
     });
+
+    //variables that are taken into account in algorithm
+    //html escape the destination address
+    var destination = escape(end);
+    var timeOfDay = time.split(":")[0];
+    // console.log(hour);
+    var weekDay = getDay()
+    //get parking availability data
+    console.log([destination, timeOfDay]);
+
+    if(destination && timeOfDay){
+
+      //get Data from apis
+      getData(destination);
+
+    }else{
+      alert("You forgot to fill something out!");
+      // location.reload();
+    }
 
   }
 
@@ -95,11 +114,10 @@ function initialize() {
     $.ajax({
       url: "http://api.parkwhiz.com/search/?destination="+dest+"&key=12189e4e3e18fd94d513a6c77f5fd621",
       type: "GET",
-      dataType : "json",
-      success : predictParking,
-      failure : function(){
-        console.log("getData failed!");
-      }
+      crossDomain: true, // enable this
+      dataType: 'jsonp',
+      success: predictParking,
+      error: function() { console.log('get Data Failed!'); }
     });
 
   }
@@ -108,9 +126,67 @@ function initialize() {
   * Method predicts the availability of parking around a destinaion
   */
   function predictParking(result){
+    // console.dir(result);
+    var parkingCount = result['parking_listings'];
+
+    if(parkingCount == undefined){
+      parkingCount = result['locations'];
+    }else{
+      parkingCount = result['parking_listings'].length;
+    }
+
+    console.log(parkingCount);
+
+    // // output string to be combined with a predictoin string
+    // var output = "From what I can tell...";
+
+    //switch statement to reveal results
+    switch(parkingCount){
+      case 0:
+      alert("Very Likely You'll Have Parking! Good Job");
+      break;
+
+      case 1:
+      alert("VERY UNLIKELY You'll Have Parking!");
+      var altRoutes = confirm("Would you like me to pull up a map for other alternative forms of transportation that don't require parking? ");
+
+      if(altRoutes){
+        console.log("Pull up routes");
+      }else{
+        console.log("Do not pull up routes");
+      }
+
+      break;
+
+      case 5:
+      alert("Very Little Chance You'll Have Parking!");
+      break;
+
+      case 10:
+      alert("You Are Somewhat Likely You'll Have Parking!");
+      break;
+
+      case 15:
+      alert("Very Likely You'll Have Parking!");
+      break;
+
+      default:
+      alert("I'm sorry, something went horribly wrong. Please retry!");
+      break;
+    }
+
+  }
 
 
+  /*
+  * Method to get the current day
+  */
 
+  function getDay(){
+    var d = new Date();
+    var day = d.getDay();
+    // console.log(day);
+    return day;
   }
 
 

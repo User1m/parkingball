@@ -13,7 +13,7 @@
   <style type="text/css">
     html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
   </style>
- <script type="text/javascript"
+  <script type="text/javascript"
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuktrfAE2xOQjTT8LpK9cxm80aPgRxYvk">
 </script>
 <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -26,15 +26,19 @@
 
             <!-- Add your site or application content here -->
             <div style="padding-bottom:20px;" class="center">
-              <h2>ParkingBall - <em>Predictive parking</em></h2>
-              Start: <input type="text" placeholder="Columbus, OH" value="" id="start" />
+              <fieldset>
+                <h2>ParkingBall - <em>Predictive parking</em></h2>
+                Start: <input type="text" placeholder="Columbus, OH" value="" id="start" required/>
 
-              Destination: <input type="text" placeholder="Atlanta, GA" value="" id="end"/>
+                Destination: <input type="text" placeholder="Atlanta, GA" value="" id="end" required/>
+
+                At: <input type="time" id="time" required/>
 
               <input type="submit" value="Enter" onclick="calcRoute();"/>
-            </div>
+            </fieldset>
+          </div>
 
-            <div id="map-canvas">
+          <div id="map-canvas">
               <!-- <iframe
               width="450"
               height="250"
