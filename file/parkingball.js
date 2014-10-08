@@ -200,7 +200,7 @@ function initialize() {
         var output = buildOutput(error);
 
         console.log(output + "IT's VERY UNLIKELY You'll Have Parking!");
-        display_area.html(output + "IT's <strong>VERY UNLIKELY</strong>you'll Hhve parking!</p>"+" </div>");
+        display_area.html(output + "IT's <strong>VERY UNLIKELY</strong>you'll Hhve parking!</p><br>Your total parking availability score was <strong>"+(totalScore*100)+"</strong> </div>");
 
         var altRoutes = confirm("Would you like me to pull up a map for other alternative forms of transportation that don't require parking? ");
 
@@ -213,12 +213,12 @@ function initialize() {
         var output = buildOutput(warning);
 
         console.log(output + "It's Very Likely You'll Have Parking!");
-        display_area.html(output + "It's <strong>Very Likely</strong> you'll have parking!</p>" + "</div>");
+        display_area.html(output + "It's <strong>Very Likely</strong> you'll have parking!</p><br>Your total parking availability score was <strong>"+(totalScore*100)+"</strong></div>");
       }else{
         var output = buildOutput(success);
 
         console.log(output + "There'll be Parking! Good Job");
-        display_area.html(output + "<strong>There'll be Parking!</strong> Good Job</p>"+" </div>");
+        display_area.html(output + "<strong>There'll be Parking!</strong> Good Job.</p><br>Your total parking availability score was <strong>"+(totalScore*100)+"</strong></div>");
       }
     }else{
       console.log("Something went wrong in the score calculation");
@@ -229,10 +229,10 @@ function initialize() {
 
   function buildOutput(status){
 
- // output string to be combined with a predictoin string
- var output ="<div class=\"alert "+status+" alert-dismissible\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>From what I can tell...";
+  // output string to be combined with a predictoin string
+  var output ="<div class=\"alert "+status+" alert-dismissible\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>From what I can tell...";
 
- return output;
+  return output;
 }
 
 
