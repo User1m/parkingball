@@ -66,6 +66,7 @@ function initialize() {
     //get route info
     var start = document.getElementById('start').value;
     var end = document.getElementById('end').value;
+    //get trip time
     var time = document.getElementById('time').value;
 
       //form request
@@ -86,16 +87,17 @@ function initialize() {
     //variables that are taken into account in algorithm
     //html escape the destination address
     var destination = escape(end);
-    var timeOfDay = time.split(":")[0];
-    // console.log(hour);
-    var weekDay = getDay()
-    //get parking availability data
-    console.log([destination, timeOfDay]);
 
+    var timeOfDay = time.split(":")[0];
+
+    // console.log(timeOfDay);
+
+    //get parking availability data
+    // console.log([destination, timeOfDay]);
     if(destination && timeOfDay){
 
       //get Data from apis
-      getData(destination);
+      getData(destination, timeOfDay);
 
     }else{
       alert("You forgot to fill something out!");
@@ -109,14 +111,18 @@ function initialize() {
   * Function to retrieve data
   */
 
-  function getData(dest){
+  function getData(dest, time){
+
+    var url = "http://api.parkwhiz.com/search/?destination="+dest+"&key=12189e4e3e18fd94d513a6c77f5fd621";
+
+    // console.log(url);
 
     $.ajax({
-      url: "http://api.parkwhiz.com/search/?destination="+dest+"&key=12189e4e3e18fd94d513a6c77f5fd621",
+      url: url,
       type: "GET",
       crossDomain: true, // enable this
       dataType: 'jsonp',
-      success: predictParking,
+      success: function(data){ predictParking(data, time); }, //closure function - can pass param in deeper
       error: function() { console.log('get Data Failed!'); }
     });
 
@@ -125,71 +131,206 @@ function initialize() {
   /*
   * Method predicts the availability of parking around a destinaion
   */
-  function predictParking(result){
+  function predictParking(data, time){
+
+    var result;
+
     // console.dir(result);
-    var parkingCount = result['parking_listings'];
+    var parkingCount = data['parking_listings'];
 
+    //check the number of parking locations in the area
     if(parkingCount == undefined){
-      parkingCount = result['locations'];
+      parkingCount = data['locations'];
     }else{
-      parkingCount = result['parking_listings'].length;
+      parkingCount = data['parking_listings'].length;
     }
 
-    console.log(parkingCount);
+    // console.log(parkingCount);
 
-    // // output string to be combined with a predictoin string
-    // var output = "From what I can tell...";
+    //determine value based on # of parking locations
+    if(parkingCount == 0){
+      result = 0.05;
 
-    //switch statement to reveal results
-    switch(parkingCount){
-      case 0:
-      alert("Very Likely You'll Have Parking! Good Job");
-      break;
+    }else if(parkingCount >= 1 && parkingCount <= 10){
+      result = 0.05;
 
-      case 1:
-      alert("VERY UNLIKELY You'll Have Parking!");
-      var altRoutes = confirm("Would you like me to pull up a map for other alternative forms of transportation that don't require parking? ");
+    }else if(parkingCount >= 11 && parkingCount <= 20){
+      result = 0.05;
 
-      if(altRoutes){
-        console.log("Pull up routes");
-      }else{
-        console.log("Do not pull up routes");
-      }
+    }else{
+      result = 0.05;
 
-      break;
-
-      case 5:
-      alert("Very Little Chance You'll Have Parking!");
-      break;
-
-      case 10:
-      alert("You Are Somewhat Likely You'll Have Parking!");
-      break;
-
-      case 15:
-      alert("Very Likely You'll Have Parking!");
-      break;
-
-      default:
-      alert("I'm sorry, something went horribly wrong. Please retry!");
-      break;
     }
 
+    // console.log("time: "+time);
+
+    // var timeOfDay = getTOD();
+
+    //factor in vaiables
+    var deNom = 0.25;
+
+    var wD = factorInWeekDay();
+    // console.log("weekday result: "+wD);
+
+    var ToD = factorInToD(time);
+    // console.log("hour result: "+ToD);
+
+    var season = factorInSeason();
+    // console.log("season result: "+season);
+
+    // console.log("destination result: "+result);
+
+    //calculate score
+    var totalScore = (wD/deNom) + (ToD/deNom) + (season/deNom) + (result/deNom);
+
+    console.log(totalScore);
+
+
+    if(!isNaN(totalScore)){
+
+      // output string to be combined with a predictoin string
+      var output = "From what I can tell...";
+
+      if(totalScore >= 0 && totalScore <= 0.5){
+
+        console.log(output + "IT's VERY UNLIKELY You'll Have Parking!");
+
+        var altRoutes = confirm("Would you like me to pull up a map for other alternative forms of transportation that don't require parking? ");
+
+        if(altRoutes){
+          console.log("Pull up routes");
+        }else{
+          console.log("Do not pull up routes");
+        }
+      }else if(totalScore >= 0.6 && totalScore <= 0.8){
+       console.log(output + "It's Very Likely You'll Have Parking!");
+     }else{
+      console.log(output + "There'll be Parking! Good Job");
+    }
+  }else{
+    console.log("Something went wrong in the score calculation");
   }
+}
 
 
   /*
   * Method to get the current day
   */
 
-  function getDay(){
-    var d = new Date();
-    var day = d.getDay();
+  function getTheDate(){
+    var day = new Date();
     // console.log(day);
     return day;
   }
 
 
+  function factorInWeekDay(){
+
+    var result;
+    //get the Date
+    var date = getTheDate();
+    //get the day of the week
+    var weekDay = date.getDay();
+
+    //determine value based on current weekday
+    switch( weekDay ){
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+      result = 0.042;
+      break;
+
+      case 5:
+      case 6:
+      result = 0.042;
+      break;
+    }
+
+    return result;
+  }
+
+  function factorInToD(hour){
+
+    var result;
+
+    hour = Number(hour);
+
+    // console.log("facorInToD: "+hour);
+
+    if(!isNaN(hour) || hour != undefined){
+
+      if(hour >= 0 && hour <= 5){
+        result = 0.01042;
+
+      }else if(hour >= 6 && hour <= 11){
+        result = 0.01042;
+
+      }else if(hour >= 12 && hour <= 15){
+        result = 0.01042;
+
+      }else if(hour >= 16 && hour <= 20){
+        result = 0.01042;
+
+      }else{
+        result = 0.01042;
+
+      }
+    }
+
+    // console.log("facorInToD result: "+result);
+
+    return result;
+
+  }
+
+
+  function factorInSeason(){
+
+    var season, result;
+
+    //get date
+    var date = getTheDate();
+
+    //get the month
+    var month = date.getMonth();
+
+    //determine season and value based on season
+    switch(month){
+      case 0: //december
+      case 1:
+      case 2:
+      season = "winter";
+      result = 0.0625;
+      break;
+
+      case 3:
+      case 4:
+      case 5:
+      season ="spring";
+      result = 0.0625;
+      break;
+
+      case 6:
+      case 7:
+      case 8:
+      season ="summer";
+      result = 0.0625;
+      break;
+
+      case 9:
+      case 10:
+      case 11:  //november
+      season ="fall";
+      result = 0.0625;
+      break;
+    }
+
+    // console.log(season);
+    return result;
+
+  }
 
   window.addEventListener('load', function(){
 
