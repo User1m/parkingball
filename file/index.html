@@ -11,8 +11,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="style.css">
   <style type="text/css">
-    html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
+  html, body, #map-canvas { height: 90%; margin: 0; padding: 0;}
   </style>
+  <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap.css">
   <script type="text/javascript"
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuktrfAE2xOQjTT8LpK9cxm80aPgRxYvk">
 </script>
@@ -26,29 +27,35 @@
 
             <!-- Add your site or application content here -->
             <div style="padding-bottom:20px;" class="center">
+              <h2>ParkingBall - <em>Predictive parking</em></h2>
               <fieldset>
-                <h2>ParkingBall - <em>Predictive parking</em></h2>
                 Start: <input type="text" placeholder="Columbus, OH" value="" id="start" required/>
 
                 Destination: <input type="text" placeholder="Atlanta, GA" value="" id="end" required/>
 
                 At: <input type="time" id="time" required/>
 
-              <input type="submit" value="Enter" onclick="calcRoute();"/>
-            </fieldset>
-          </div>
+                <input type="submit"  class="btn btn-default"value="Enter" onclick="calcRoute();"/>
+              </fieldset>
+            </div>
 
-          <div id="map-canvas">
-              <!-- <iframe
+            <div id="map-canvas">
+             <!--  <iframe
               width="450"
               height="250"
               frameborder="0" style="border:0"
-              src="https://www.google.com/maps/embed/v1/search?key=AIzaSyBuktrfAE2xOQjTT8LpK9cxm80aPgRxYvk&q=record+stores+in+Seattle">
+              src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyBuktrfAE2xOQjTT8LpK9cxm80aPgRxYvk&origin=Oslo+Norway
+              &destination=Telemark+Norway
+              &avoid=tolls|highways">
             </iframe> -->
+          </div>
+
+          <div id="result_area">
 
           </div>
 
           <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+          <script type="text/javascript" src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
           <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
 
           <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->

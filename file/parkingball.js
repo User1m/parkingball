@@ -186,14 +186,21 @@ function initialize() {
     console.log(totalScore);
 
 
+    var display_area = $("#result_area");
+    console.dir(display_area);
+
     if(!isNaN(totalScore)){
 
-      // output string to be combined with a predictoin string
-      var output = "From what I can tell...";
+      var success ="alert-success";
+      var warning ="alert-warning";
+      var error="alert-danger";
+
 
       if(totalScore >= 0 && totalScore <= 0.5){
+        var output = buildOutput(error);
 
         console.log(output + "IT's VERY UNLIKELY You'll Have Parking!");
+        display_area.html(output + "IT's <strong>VERY UNLIKELY</strong>you'll Hhve parking!</p>"+" </div>");
 
         var altRoutes = confirm("Would you like me to pull up a map for other alternative forms of transportation that don't require parking? ");
 
@@ -203,13 +210,29 @@ function initialize() {
           console.log("Do not pull up routes");
         }
       }else if(totalScore >= 0.6 && totalScore <= 0.8){
-       console.log(output + "It's Very Likely You'll Have Parking!");
-     }else{
-      console.log(output + "There'll be Parking! Good Job");
+        var output = buildOutput(warning);
+
+        console.log(output + "It's Very Likely You'll Have Parking!");
+        display_area.html(output + "It's <strong>Very Likely</strong> you'll have parking!</p>" + "</div>");
+      }else{
+        var output = buildOutput(success);
+
+        console.log(output + "There'll be Parking! Good Job");
+        display_area.html(output + "<strong>There'll be Parking!</strong> Good Job</p>"+" </div>");
+      }
+    }else{
+      console.log("Something went wrong in the score calculation");
+      display_area.innerHTML = "Something went wrong in the score calculation";
     }
-  }else{
-    console.log("Something went wrong in the score calculation");
   }
+
+
+  function buildOutput(status){
+
+ // output string to be combined with a predictoin string
+ var output ="<div class=\"alert "+status+" alert-dismissible\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>From what I can tell...";
+
+ return output;
 }
 
 
