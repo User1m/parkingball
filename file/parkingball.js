@@ -2,8 +2,10 @@
 //setup variables
 var dirDisplay, map, dirService = new google.maps.DirectionsService();
 
+
+var parkingBall = {
 //initialize the map
-function initialize() {
+initialize: function() {
     //call new DirectionsRenderer
     dirDisplay = new google.maps.DirectionsRenderer();
 
@@ -36,7 +38,7 @@ function initialize() {
   * Method geocodes an address and returns it
   */
 
-  function geoCode(start){
+  geoCode: function(start){
     var address;
     var geocoder = new google.maps.Geocoder();
 
@@ -61,7 +63,7 @@ function initialize() {
   * Method calcualtes a route from start to destinaion
   */
 
-  function calcRoute(){
+  calcRoute: function(){
 
     //get route info
     var start = document.getElementById('start').value;
@@ -97,7 +99,7 @@ function initialize() {
     if(destination && timeOfDay){
 
       //get Data from apis
-      getData(destination, timeOfDay);
+      this.getData(destination, timeOfDay);
 
     }else{
       alert("You forgot to fill something out!");
@@ -111,7 +113,7 @@ function initialize() {
   * Function to retrieve data
   */
 
-  function getData(dest, time){
+  getData: function (dest, time){
 
     var url = "http://api.parkwhiz.com/search/?destination="+dest+"&key=12189e4e3e18fd94d513a6c77f5fd621";
 
@@ -122,8 +124,8 @@ function initialize() {
       type: "GET",
       crossDomain: true, // enable this
       dataType: 'jsonp',
-      success: function(data){ predictParking(data, time); }, //closure function - can pass param in deeper
-      error: function() { console.log('get Data Failed!'); }
+      success: function(data){ this.predictParking(data, time); }, //closure function - can pass param in deeper
+      error: function(){ console.log('get Data Failed!'); }
     });
 
   }
@@ -131,7 +133,7 @@ function initialize() {
   /*
   * Method predicts the availability of parking around a destinaion
   */
-  function predictParking(data, time){
+  predictParking: function(data, time){
 
     var result;
 
@@ -170,15 +172,15 @@ function initialize() {
     var deNom = 0.25;
 
     var wD = factorInWeekDay();
-    // console.log("weekday result: "+wD);
+    console.log("weekday result: "+wD);
 
     var ToD = factorInToD(time);
-    // console.log("hour result: "+ToD);
+    console.log("hour result: "+ToD);
 
     var season = factorInSeason();
-    // console.log("season result: "+season);
+    console.log("season result: "+season);
 
-    // console.log("destination result: "+result);
+    console.log("destination result: "+result);
 
     //calculate score
     var totalScore = (wD/deNom) + (ToD/deNom) + (season/deNom) + (result/deNom);
@@ -187,7 +189,8 @@ function initialize() {
 
 
     var display_area = $("#result_area");
-    console.dir(display_area);
+    // console.dir(display_area);
+    display_area.html("");
 
     if(!isNaN(totalScore)){
 
@@ -198,9 +201,9 @@ function initialize() {
 
       if(totalScore >= 0 && totalScore <= 0.5){
         var output = buildOutput(error);
-
-        console.log(output + "IT's VERY UNLIKELY You'll Have Parking!");
-        display_area.html(output + "IT's <strong>VERY UNLIKELY</strong>you'll Hhve parking!</p><br>Your total parking availability score was <strong>"+(totalScore*100)+"</strong> </div>");
+        output = output + "IT's <strong>VERY UNLIKELY</strong>you'll Hhve parking!</p><br>Your total parking availability score was <strong>"+(totalScore*100)+"</strong> </div>";
+        display_area.html(output);
+        console.log(output);
 
         var altRoutes = confirm("Would you like me to pull up a map for other alternative forms of transportation that don't require parking? ");
 
@@ -211,14 +214,15 @@ function initialize() {
         }
       }else if(totalScore >= 0.6 && totalScore <= 0.8){
         var output = buildOutput(warning);
+        output = output + "It's <strong>Very Likely</strong> you'll have parking!</p><br>Your total parking availability score was <strong>"+(totalScore*100)+"</strong></div>";
+        display_area.html(output);
+        console.log(output);
 
-        console.log(output + "It's Very Likely You'll Have Parking!");
-        display_area.html(output + "It's <strong>Very Likely</strong> you'll have parking!</p><br>Your total parking availability score was <strong>"+(totalScore*100)+"</strong></div>");
       }else{
         var output = buildOutput(success);
-
-        console.log(output + "There'll be Parking! Good Job");
-        display_area.html(output + "<strong>There'll be Parking!</strong> Good Job.</p><br>Your total parking availability score was <strong>"+(totalScore*100)+"</strong></div>");
+        output = output + "<strong>There'll be Parking!</strong> Good Job.</p><br>Your total parking availability score was <strong>"+(totalScore*100)+"</strong></div>";
+        display_area.html(output);
+        console.log(output);
       }
     }else{
       console.log("Something went wrong in the score calculation");
@@ -227,7 +231,7 @@ function initialize() {
   }
 
 
-  function buildOutput(status){
+  buildOutput: function (status){
 
   // output string to be combined with a predictoin string
   var output ="<div class=\"alert "+status+" alert-dismissible\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>From what I can tell...";
@@ -240,14 +244,14 @@ function initialize() {
   * Method to get the current day
   */
 
-  function getTheDate(){
+  getTheDate: function(){
     var day = new Date();
     // console.log(day);
     return day;
   }
 
 
-  function factorInWeekDay(){
+  factorInWeekDay: function(){
 
     var result;
     //get the Date
@@ -274,7 +278,7 @@ function initialize() {
     return result;
   }
 
-  function factorInToD(hour){
+  factorInToD: function(hour){
 
     var result;
 
@@ -303,13 +307,12 @@ function initialize() {
     }
 
     // console.log("facorInToD result: "+result);
-
     return result;
 
   }
 
 
-  function factorInSeason(){
+  factorInSeason: function(){
 
     var season, result;
 
@@ -352,11 +355,18 @@ function initialize() {
 
     // console.log(season);
     return result;
-
   }
 
-  window.addEventListener('load', function(){
+};
 
-    initialize();
 
-  });
+document.addEventListener("DOMContenteLoaded", function(){
+  document.getElementById('submit').addEventListener('click', parkingBall.calcRoute);
+});
+
+window.onload = parkingBall.initialize();
+// window.addEventListener('load', function(){
+
+//   initialize();
+
+// });
