@@ -4,6 +4,7 @@ var dirDisplay, map, dirService = new google.maps.DirectionsService();
 
 
 var parkingBall = {
+
 //initialize the map
 initialize: function() {
     //call new DirectionsRenderer
@@ -31,7 +32,7 @@ initialize: function() {
     //calculate route
     // calcRoute();
 
-  }
+  },
   // google.maps.event.addDomListener(window, 'load', initialize);
 
   /*
@@ -57,13 +58,15 @@ initialize: function() {
         alert("Could not find that start address for the following reason: "+status);
       }
     });
-  }
+  },
 
   /*
   * Method calcualtes a route from start to destinaion
   */
 
   calcRoute: function(){
+
+    console.log("onclick happend");
 
     //get route info
     var start = document.getElementById('start').value;
@@ -106,7 +109,7 @@ initialize: function() {
       // location.reload();
     }
 
-  }
+  },
 
 
   /*
@@ -128,7 +131,7 @@ initialize: function() {
       error: function(){ console.log('get Data Failed!'); }
     });
 
-  }
+  },
 
   /*
   * Method predicts the availability of parking around a destinaion
@@ -228,7 +231,7 @@ initialize: function() {
       console.log("Something went wrong in the score calculation");
       display_area.innerHTML = "Something went wrong in the score calculation";
     }
-  }
+  },
 
 
   buildOutput: function (status){
@@ -237,7 +240,7 @@ initialize: function() {
   var output ="<div class=\"alert "+status+" alert-dismissible\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>From what I can tell...";
 
   return output;
-}
+},
 
 
   /*
@@ -248,7 +251,7 @@ initialize: function() {
     var day = new Date();
     // console.log(day);
     return day;
-  }
+  },
 
 
   factorInWeekDay: function(){
@@ -276,7 +279,7 @@ initialize: function() {
     }
 
     return result;
-  }
+  },
 
   factorInToD: function(hour){
 
@@ -309,7 +312,7 @@ initialize: function() {
     // console.log("facorInToD result: "+result);
     return result;
 
-  }
+  },
 
 
   factorInSeason: function(){
@@ -356,17 +359,13 @@ initialize: function() {
     // console.log(season);
     return result;
   }
-
 };
-
 
 document.addEventListener("DOMContenteLoaded", function(){
   document.getElementById('submit').addEventListener('click', parkingBall.calcRoute);
 });
 
-window.onload = parkingBall.initialize();
-// window.addEventListener('load', function(){
-
-//   initialize();
-
-// });
+// window.onload = parkingBall.initialize();
+window.addEventListener('load', function(){
+  parkingBall.initialize();
+});
