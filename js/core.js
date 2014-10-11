@@ -264,7 +264,7 @@ var core = {
       }
     }else{
       console.log("Something went wrong in the score calculation");
-      display_area.innerHTML = "Something went wrong in the score calculation";
+      display_area.html("Something went wrong in the score calculation");
     }
   }
 
