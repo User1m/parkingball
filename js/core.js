@@ -244,21 +244,33 @@ var core = {
 
         if(version == "app"){
           output = output + "it's <strong>VERY UNLIKELY</strong> you'll have parking!<br>Your total Parking Availability Score <strong>(P.A.S)</strong> was <strong>"+(totalScore*100)+"</strong><br>Would you like me to pull up an alternate route using transit transportation, which doesn't require parking? <strong><a onclick=\"app.altRoute('y');\" class=\"alert-link\">YES</a></strong>/<strong><a onclick=\"app.altRoute('n');\" class=\"alert-link\">NO</a></strong></p></div>";
-          display_area.html(output);
         }else{
           output = output + "it's <strong>VERY UNLIKELY</strong> you'll have parking!<br>Your total Parking Availability Score <strong>(P.A.S)</strong> was <strong>"+(totalScore*100)+"</strong></p></div>";
-          display_area.html(output);
         }
+
+        display_area.html(output);
         // console.log(output);
       }else if(totalScore >= 0.6 && totalScore <= 0.8){
         var output = core.buildOutput(warning);
-        output = output + "it's <strong>Very Likely</strong> you'll have parking!<br>Your total Parking Availability Score <strong>(P.A.S)</strong> was <strong>"+(totalScore*100)+"</strong><br>Would you like me to pull up an alternate route using transit transportation, which doesn't require parking? <strong><a onclick=\"app.altRoute('y');\" class=\"alert-link\">YES</a></strong>/<strong><a onclick=\"app.altRoute('n');\" class=\"alert-link\">NO</a></strong></p></div>";
+
+        if(version == "app"){
+          output = output + "it's <strong>Very Likely</strong> you'll have parking!<br>Your total Parking Availability Score <strong>(P.A.S)</strong> was <strong>"+(totalScore*100)+"</strong><br>Would you like me to pull up an alternate route using transit transportation, which doesn't require parking? <strong><a onclick=\"app.altRoute('y');\" class=\"alert-link\">YES</a></strong>/<strong><a onclick=\"app.altRoute('n');\" class=\"alert-link\">NO</a></strong></p></div>";
+        }else{
+          output = output + "it's <strong>Very Likely</strong> you'll have parking!<br>Your total Parking Availability Score <strong>(P.A.S)</strong> was <strong>"+(totalScore*100)+"</strong></p></div>";
+        }
+
         display_area.html(output);
         // console.log(output);
 
       }else{
         var output = core.buildOutput(success);
-        output = output + "<strong>There'll be Parking!</strong> Good Job.<br>Your total Parking Availability Score <strong>(P.A.S)</strong> was <strong>"+(totalScore*100)+"</strong><br>Would you like me to pull up an alternate route using transit transportation, which doesn't require parking? <strong><a onclick=\"app.altRoute('y');\" class=\"alert-link\">YES</a></strong>/<strong><a onclick=\"app.altRoute('n');\" class=\"alert-link\">NO</a></strong></p></div>";
+
+        if(version == "app"){
+          output = output + "<strong>There'll be Parking!</strong> Good Job.<br>Your total Parking Availability Score <strong>(P.A.S)</strong> was <strong>"+(totalScore*100)+"</strong><br>Would you like me to pull up an alternate route using transit transportation, which doesn't require parking? <strong><a onclick=\"app.altRoute('y');\" class=\"alert-link\">YES</a></strong>/<strong><a onclick=\"app.altRoute('n');\" class=\"alert-link\">NO</a></strong></p></div>";
+        }else{
+          output = output + "<strong>There'll be Parking!</strong> Good Job.<br>Your total Parking Availability Score <strong>(P.A.S)</strong> was <strong>"+(totalScore*100)+"</strong></p></div>";
+        }
+
         display_area.html(output);
         // console.log(output);
       }
