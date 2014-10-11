@@ -9,7 +9,7 @@
   <title></title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
   <style type="text/css">
     html,
     body {
@@ -22,14 +22,9 @@
 }
 </style>
 <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap.css">
-<!-- <script type="text/javascript"
-src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuktrfAE2xOQjTT8LpK9cxm80aPgRxYvk">
-</script> -->
 <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-<script type="text/javascript" src="core.js"></script>
-<!-- <script type="text/javascript" src="parkingball.js"></script>
--->
-<script type="text/javascript" src="chrome_ext.js"></script>
+<script type="text/javascript" src="../js/core.js"></script>
+<script type="text/javascript" src="../js/chrome_ext.js"></script>
 </head>
 <body>
         <!--[if lt IE 7]>
@@ -40,15 +35,13 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuktrfAE2xOQjTT8LpK9cxm80
             <div style="padding-bottom:20px;" class="center">
               <h2>ParkingBall - <em>Predictive parking</em></h2>
               <fieldset>
-                Start: <input type="text" placeholder="Columbus, OH" value="" id="start" required/>
-                <br>
+                Start: <input type="text" placeholder="Columbus, OH" value="" id="start" required/><br>
 
                 Destination: <input type="text" placeholder="Atlanta, GA" value="" id="end" required/><br>
 
                 At: <input type="time" id="time" required/>
 
                 <input type="submit"  class="btn btn-primary"value="Enter"  id="submit" />
-                <!-- <input type="submit"  class="btn btn-primary"value="Enter" onclick="calcRoute();" id="submit" /> -->
               </fieldset>
             </div>
 
@@ -62,16 +55,5 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuktrfAE2xOQjTT8LpK9cxm80
 
             <script src="../bower_components/jquery/dist/jquery.js"></script>
             <script type="text/javascript" src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
-            <!-- <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script> -->
-
-            <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-          <!-- <script>
-            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-              function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-            e.src='http://www.google-analytics.com/analytics.js';
-            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-            ga('create','UA-XXXXX-X');ga('send','pageview');
-          </script> -->
-        </body>
-        </html>
+          </body>
+          </html>

@@ -1,0 +1,25 @@
+.center {
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  /* background-color: #b0e0e6; */
+}
+
+html,
+body,
+#map_canvas {
+  height: 600px; margin: 0; padding: 0;
+/*  margin-right: 310px;
+*/}
+
+#result_area{
+  text-align: center;
+  font-size: 15px;
+}
+
+#directions_area {
+  float: right;
+  width: 300px;
+  margin-left: 10px;
+  margin-right: 10px;
+}

@@ -4,7 +4,6 @@
 
 var core = {
 
-
   /*
   * Method to get the current day
   */
@@ -133,106 +132,6 @@ var core = {
 },
 
 
-// /*
-//   * Method predicts the availability of parking around a destinaion
-//   */
-//   predictParking: function(data, time){
-
-//     var result;
-
-//     // console.dir(result);
-//     var parkingCount = data['parking_listings'];
-
-//     //check the number of parking locations in the area
-//     if(parkingCount == undefined){
-//       parkingCount = data['locations'];
-//     }else{
-//       parkingCount = data['parking_listings'].length;
-//     }
-
-//     // console.log(parkingCount);
-
-//     //determine value based on # of parking locations
-//     if(parkingCount == 0){
-//       result = 0.05;
-
-//     }else if(parkingCount >= 1 && parkingCount <= 10){
-//       result = 0.05;
-
-//     }else if(parkingCount >= 11 && parkingCount <= 20){
-//       result = 0.05;
-
-//     }else{
-//       result = 0.05;
-
-//     }
-
-//     // console.log("time: "+time);
-
-//     // var timeOfDay = getTOD();
-
-//     //factor in vaiables
-//     var deNom = 0.25;
-
-//     var wD = this.factorInWeekDay();
-//     console.log("weekday result: "+wD);
-
-//     var ToD = this.factorInToD(time);
-//     console.log("hour result: "+ToD);
-
-//     var season = this. factorInSeason();
-//     console.log("season result: "+season);
-
-//     console.log("destination result: "+result);
-
-//     //calculate score
-//     var totalScore = (wD/deNom) + (ToD/deNom) + (season/deNom) + (result/deNom);
-
-//     console.log(totalScore);
-
-
-//     var display_area = $("#result_area");
-//     // console.dir(display_area);
-//     display_area.html("");
-
-//     if(!isNaN(totalScore)){
-
-//       var success ="alert-success";
-//       var warning ="alert-warning";
-//       var error="alert-danger";
-
-
-//       if(totalScore >= 0 && totalScore <= 0.5){
-//         var output = buildOutput(error);
-//         output = output + "IT's <strong>VERY UNLIKELY</strong>you'll Hhve parking!</p><br>Your total parking availability score was <strong>"+(totalScore*100)+"</strong> </div>";
-//         display_area.html(output);
-//         console.log(output);
-
-//         var altRoutes = confirm("Would you like me to pull up a map for other alternative forms of transportation that don't require parking? ");
-
-//         if(altRoutes){
-//           console.log("Pull up routes");
-//         }else{
-//           console.log("Do not pull up routes");
-//         }
-//       }else if(totalScore >= 0.6 && totalScore <= 0.8){
-//         var output = buildOutput(warning);
-//         output = output + "It's <strong>Very Likely</strong> you'll have parking!</p><br>Your total parking availability score was <strong>"+(totalScore*100)+"</strong></div>";
-//         display_area.html(output);
-//         console.log(output);
-
-//       }else{
-//         var output = buildOutput(success);
-//         output = output + "<strong>There'll be Parking!</strong> Good Job.</p><br>Your total parking availability score was <strong>"+(totalScore*100)+"</strong></div>";
-//         display_area.html(output);
-//         console.log(output);
-//       }
-//     }else{
-//       console.log("Something went wrong in the score calculation");
-//       display_area.innerHTML = "Something went wrong in the score calculation";
-//     }
-//   },
-
   /*
   * Function to retrieve data
   */
@@ -252,15 +151,26 @@ var core = {
       error: function(){ console.log('get Data Failed!'); }
     });
 
+  },
+
+  /*
+  * Recommends a better time and place to visit destination
+  */
+
+  recommend: function(dest){
+    alert("You should visit "+dest+" on Weekend evenings");
+
   }
+
+
 };
 
 
 
-/*
+  /*
   * Method predicts the availability of parking around a destinaion
   */
-function predictParking(data, time){
+  function predictParking(data, time){
 
     var result;
 
@@ -310,9 +220,10 @@ function predictParking(data, time){
     console.log("destination result: "+result);
 
     //calculate score
-    var totalScore = (wD/deNom) + (ToD/deNom) + (season/deNom) + (result/deNom);
+    // var totalScore = (wD/deNom) + (ToD/deNom) + (season/deNom) + (result/deNom);
+    var totalScore = 0;
 
-    console.log(totalScore);
+    // console.log(totalScore);
 
 
     var display_area = $("#result_area");
@@ -325,23 +236,15 @@ function predictParking(data, time){
       var warning ="alert-warning";
       var error="alert-danger";
 
-
       if(totalScore >= 0 && totalScore <= 0.5){
         var output = core.buildOutput(error);
-        output = output + "IT's <strong>VERY UNLIKELY</strong>you'll Hhve parking!</p><br>Your total parking availability score was <strong>"+(totalScore*100)+"</strong> </div>";
+        output = output + "it's <strong>VERY UNLIKELY</strong> you'll have parking!<br>Your total parking availability score was <strong>"+(totalScore*100)+"</strong><br>Would you like me to pull up a map of transit transportation? That doesn't require parking! <strong><a onclick=\"app.altRoute();\" class=\"alert-link\">YES</a></strong>/<strong><a class=\"alert-link\">NO</a></strong></p></div>";
         display_area.html(output);
-        console.log(output);
+        // console.log(output);
 
-        var altRoutes = confirm("Would you like me to pull up a map for other alternative forms of transportation that don't require parking? ");
-
-        if(altRoutes){
-          console.log("Pull up routes");
-        }else{
-          console.log("Do not pull up routes");
-        }
       }else if(totalScore >= 0.6 && totalScore <= 0.8){
         var output = core.buildOutput(warning);
-        output = output + "It's <strong>Very Likely</strong> you'll have parking!</p><br>Your total parking availability score was <strong>"+(totalScore*100)+"</strong></div>";
+        output = output + "it's <strong>Very Likely</strong> you'll have parking!</p><br>Your total parking availability score was <strong>"+(totalScore*100)+"</strong></div>";
         display_area.html(output);
         console.log(output);
 

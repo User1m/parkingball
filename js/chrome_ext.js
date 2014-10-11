@@ -8,7 +8,7 @@ window.addEventListener('load', function(){
 var ext = {
 
   init:function(){
-    var map = $("#map-canvas");
+    var map = $("#map_canvas");
 
     var start = document.getElementById("start").value;
     var end = document.getElementById("end").value;
