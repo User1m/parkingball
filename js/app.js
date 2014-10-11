@@ -104,6 +104,8 @@ initialize: function() {
   */
   altRoute: function(response){
 
+    end = end.toUpperCase();
+
     if(response == "y"){
     //make request
     var request = {

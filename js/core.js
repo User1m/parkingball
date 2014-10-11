@@ -32,28 +32,28 @@ var core = {
       case 1:
       case 2:
       season = "winter";
-      result = 0.0625;
+      result = 0.025;
       break;
 
       case 3:
       case 4:
       case 5:
       season ="spring";
-      result = 0.0625;
+      result = 0.0125;
       break;
 
       case 6:
       case 7:
       case 8:
       season ="summer";
-      result = 0.0625;
+      result = 0.0125;
       break;
 
       case 9:
       case 10:
       case 11:  //november
       season ="fall";
-      result = 0.0625;
+      result = 0.0125;
       break;
     }
 
@@ -77,12 +77,12 @@ var core = {
       case 2:
       case 3:
       case 4:
-      result = 0.042;
+      result = 0.1; //40% of 0.042
       break;
 
       case 5:
       case 6:
-      result = 0.042;
+      result = 0.15; //40% of 0.042
       break;
     }
 
@@ -100,19 +100,19 @@ var core = {
     if(!isNaN(hour) || hour != undefined){
 
       if(hour >= 0 && hour <= 5){
-        result = 0.01042;
+        result = 0.003123; //30% of 0.01042
 
       }else if(hour >= 6 && hour <= 11){
-        result = 0.01042;
+        result = 0.001042; //10% of 0.01042
 
       }else if(hour >= 12 && hour <= 15){
-        result = 0.01042;
+        result = 0.001042; //10% of 0.01042
 
       }else if(hour >= 16 && hour <= 20){
-        result = 0.01042;
+        result = 0.002084; //20% of 0.01042
 
       }else{
-        result = 0.01042;
+        result = 0.003123; //30% of 0.01042
 
       }
     }
@@ -188,16 +188,16 @@ var core = {
 
     //determine value based on # of parking locations
     if(parkingCount == 0){
-      result = 0.05;
+      result = 0.00625; //10% of 0.0625
 
     }else if(parkingCount >= 1 && parkingCount <= 10){
-      result = 0.05;
+      result = 0.00625; //10% of 0.0625
 
     }else if(parkingCount >= 11 && parkingCount <= 20){
-      result = 0.05;
+      result = 0.1875; //30% of 0.0625
 
     }else{
-      result = 0.05;
+      result = 0.03125; //50% of 0.0625
 
     }
 
@@ -220,8 +220,8 @@ var core = {
     console.log("destination result: "+result);
 
     //calculate score
-    // var totalScore = (wD/deNom) + (ToD/deNom) + (season/deNom) + (result/deNom);
-    var totalScore = 0;
+    var totalScore = (wD/deNom) + (ToD/deNom) + (season/deNom) + (result/deNom);
+    // var totalScore = 0;
 
     // console.log(totalScore);
 
@@ -243,24 +243,24 @@ var core = {
         var output = core.buildOutput(error);
 
         if(version == "app"){
-          output = output + "it's <strong>VERY UNLIKELY</strong> you'll have parking!<br>Your total parking availability score was <strong>"+(totalScore*100)+"</strong><br>Would you like me to pull up an alternate route using transit transportation, which doesn't require parking? <strong><a onclick=\"app.altRoute('y');\" class=\"alert-link\">YES</a></strong>/<strong><a onclick=\"app.altRoute('n');\" class=\"alert-link\">NO</a></strong></p></div>";
+          output = output + "it's <strong>VERY UNLIKELY</strong> you'll have parking!<br>Your total Parking Availability Score <strong>(P.A.S)</strong> was <strong>"+(totalScore*100)+"</strong><br>Would you like me to pull up an alternate route using transit transportation, which doesn't require parking? <strong><a onclick=\"app.altRoute('y');\" class=\"alert-link\">YES</a></strong>/<strong><a onclick=\"app.altRoute('n');\" class=\"alert-link\">NO</a></strong></p></div>";
           display_area.html(output);
         }else{
-          output = output + "it's <strong>VERY UNLIKELY</strong> you'll have parking!<br>Your total parking availability score was <strong>"+(totalScore*100)+"</strong></p></div>";
+          output = output + "it's <strong>VERY UNLIKELY</strong> you'll have parking!<br>Your total Parking Availability Score <strong>(P.A.S)</strong> was <strong>"+(totalScore*100)+"</strong></p></div>";
           display_area.html(output);
         }
         // console.log(output);
       }else if(totalScore >= 0.6 && totalScore <= 0.8){
         var output = core.buildOutput(warning);
-        output = output + "it's <strong>Very Likely</strong> you'll have parking!</p><br>Your total parking availability score was <strong>"+(totalScore*100)+"</strong></div>";
+        output = output + "it's <strong>Very Likely</strong> you'll have parking!<br>Your total Parking Availability Score <strong>(P.A.S)</strong> was <strong>"+(totalScore*100)+"</strong><br>Would you like me to pull up an alternate route using transit transportation, which doesn't require parking? <strong><a onclick=\"app.altRoute('y');\" class=\"alert-link\">YES</a></strong>/<strong><a onclick=\"app.altRoute('n');\" class=\"alert-link\">NO</a></strong></p></div>";
         display_area.html(output);
-        console.log(output);
+        // console.log(output);
 
       }else{
         var output = core.buildOutput(success);
-        output = output + "<strong>There'll be Parking!</strong> Good Job.</p><br>Your total parking availability score was <strong>"+(totalScore*100)+"</strong></div>";
+        output = output + "<strong>There'll be Parking!</strong> Good Job.<br>Your total Parking Availability Score <strong>(P.A.S)</strong> was <strong>"+(totalScore*100)+"</strong><br>Would you like me to pull up an alternate route using transit transportation, which doesn't require parking? <strong><a onclick=\"app.altRoute('y');\" class=\"alert-link\">YES</a></strong>/<strong><a onclick=\"app.altRoute('n');\" class=\"alert-link\">NO</a></strong></p></div>";
         display_area.html(output);
-        console.log(output);
+        // console.log(output);
       }
     }else{
       console.log("Something went wrong in the score calculation");
