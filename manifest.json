@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
 
-  "name" : "Parking Ball",
+  "name" : "Parking Genie",
 
-  "description" : "Your crystal ball guide into the availability of parking where ever your destination is...So that you can know before you go.",
+  "description" : "Predicting the availability of parking where ever your destination is...So that you can know before you go.",
 
   "version" : "0.6",
 

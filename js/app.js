@@ -94,7 +94,7 @@ initialize: function() {
 
     }else{
       alert("You forgot to fill something out!");
-      // location.reload();
+      location.reload();
     }
 
   },
