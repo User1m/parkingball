@@ -14,12 +14,9 @@
     html,
     body {
       min-width: 600px;
-      min-height: 600px;
-/*      overflow-x: hidden;
-*/    },
-#map-canvas {
-  height: 88%; margin: 0; padding: 0;
-}
+  /*  min-height: 550px;
+    overflow-x: hidden;
+  */    }
 </style>
 <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap.css">
 <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -32,8 +29,8 @@
             <![endif]-->
 
             <!-- Add your site or application content here -->
+            <h3 class="header">ParkingBall - <em>Predictive parking</em></h3>
             <div style="padding-bottom:20px;" class="center">
-              <h2>ParkingBall - <em>Predictive parking</em></h2>
               <fieldset>
                 Start: <input type="text" placeholder="Columbus, OH" value="" id="start" required/><br>
 
@@ -45,13 +42,8 @@
               </fieldset>
             </div>
 
-            <div id="map-canvas">
-
-            </div>
-
-            <div id="result_area">
-
-            </div>
+            <div id="ext_map_canvas"></div>
+            <div id="ext_result_area"></div>
 
             <script src="../bower_components/jquery/dist/jquery.js"></script>
             <script type="text/javascript" src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>

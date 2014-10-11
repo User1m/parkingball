@@ -4,17 +4,21 @@
   width: 50%;
   /* background-color: #b0e0e6; */
 }
-
+/*
 html,
-body,
+body,*/
 #map_canvas {
   height: 600px; margin: 0; padding: 0;
 /*  margin-right: 310px;
 */}
 
+/*APP CSS
+*/
+
 #result_area{
   text-align: center;
   font-size: 15px;
+  width: 78%
 }
 
 #directions_area {
@@ -23,3 +27,19 @@ body,
   margin-left: 10px;
   margin-right: 10px;
 }
+
+.header{
+  padding-left: 110px;
+}
+
+
+/*EXTENSION CSS
+*/
+#ext_result_area{
+  text-align: center;
+  font-size: 15px;
+}
+#ext_map_canvas {
+  height: 260px; margin: 0; padding: 0;
+}
+

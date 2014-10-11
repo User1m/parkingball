@@ -8,7 +8,7 @@ window.addEventListener('load', function(){
 var ext = {
 
   init:function(){
-    var map = $("#map_canvas");
+    var map = $("#ext_map_canvas");
 
     var start = document.getElementById("start").value;
     var end = document.getElementById("end").value;
@@ -24,7 +24,7 @@ var ext = {
 
     map.html(output);
 
-    core.getData(end,timeOfDay);
+    core.getData(end,timeOfDay,"ext");
 
   }
 

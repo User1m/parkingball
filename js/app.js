@@ -90,7 +90,7 @@ initialize: function() {
     if(destination && timeOfDay){
 
       //get Data from apis
-      core.getData(destination, timeOfDay);
+      core.getData(destination, timeOfDay, "app");
 
     }else{
       alert("You forgot to fill something out!");
@@ -102,7 +102,9 @@ initialize: function() {
  /*
   * Brings up alternate transit info if user requests
   */
-  altRoute: function(){
+  altRoute: function(response){
+
+    if(response == "y"){
     //make request
     var request = {
       origin: start,
@@ -116,9 +118,13 @@ initialize: function() {
         dirDisplay.setPanel(document.getElementById("directions_area"));
       }
     });
-    document.getElementById("result_area").innerHTML="";
+    document.getElementById("result_area").innerHTML="<div class=\"alert alert-info\" role=\"alert\"><strong>Here is a route to "+end+" using transit. It's a much greener option and certainly doesn't require parking!</strong></div>";
+    return false;
+  }else{
+    document.getElementById("result_area").innerHTML="<div class=\"alert alert-info\" role=\"alert\"><strong>Well then I would recommend visiting "+end+" on a weekend evening when there's a higher likelihood that you'll have parking!</strong></div>";
     return false;
   }
+}
 
 };
 

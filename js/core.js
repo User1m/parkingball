@@ -126,7 +126,7 @@ var core = {
   buildOutput: function (status){
 
   // output string to be combined with a predictoin string
-  var output ="<div class=\"alert "+status+" alert-dismissible\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>From what I can tell...";
+  var output ="<div class=\"alert alert-"+status+" alert-dismissible\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>From what I can tell...";
 
   return output;
 },
@@ -136,7 +136,7 @@ var core = {
   * Function to retrieve data
   */
 
-  getData: function (dest, time){
+  getData: function (dest, time, version){
 
     var url = "https://api.parkwhiz.com/search/?destination="+dest+"&key=12189e4e3e18fd94d513a6c77f5fd621";
 
@@ -147,7 +147,7 @@ var core = {
       type: "GET",
       crossDomain: true, // enable this
       dataType: 'jsonp',
-      success: function(data){ predictParking(data, time); }, //closure function - can pass param in deeper
+      success: function(data){ predictParking(data, time, version); }, //closure function - can pass param in deeper
       error: function(){ console.log('get Data Failed!'); }
     });
 
@@ -170,7 +170,7 @@ var core = {
   /*
   * Method predicts the availability of parking around a destinaion
   */
-  function predictParking(data, time){
+  function predictParking(data, time, version){
 
     var result;
 
@@ -225,23 +225,31 @@ var core = {
 
     // console.log(totalScore);
 
+    if(version == "app"){
+      var display_area = $("#result_area");
+    }else{
+      var display_area = $("#ext_result_area");
+    }
 
-    var display_area = $("#result_area");
-    // console.dir(display_area);
     display_area.html("");
 
     if(!isNaN(totalScore)){
 
-      var success ="alert-success";
-      var warning ="alert-warning";
-      var error="alert-danger";
+      var success ="success";
+      var warning ="warning";
+      var error="danger";
 
       if(totalScore >= 0 && totalScore <= 0.5){
         var output = core.buildOutput(error);
-        output = output + "it's <strong>VERY UNLIKELY</strong> you'll have parking!<br>Your total parking availability score was <strong>"+(totalScore*100)+"</strong><br>Would you like me to pull up a map of transit transportation? That doesn't require parking! <strong><a onclick=\"app.altRoute();\" class=\"alert-link\">YES</a></strong>/<strong><a class=\"alert-link\">NO</a></strong></p></div>";
-        display_area.html(output);
-        // console.log(output);
 
+        if(version == "app"){
+          output = output + "it's <strong>VERY UNLIKELY</strong> you'll have parking!<br>Your total parking availability score was <strong>"+(totalScore*100)+"</strong><br>Would you like me to pull up an alternate route using transit transportation, which doesn't require parking? <strong><a onclick=\"app.altRoute('y');\" class=\"alert-link\">YES</a></strong>/<strong><a onclick=\"app.altRoute('n');\" class=\"alert-link\">NO</a></strong></p></div>";
+          display_area.html(output);
+        }else{
+          output = output + "it's <strong>VERY UNLIKELY</strong> you'll have parking!<br>Your total parking availability score was <strong>"+(totalScore*100)+"</strong></p></div>";
+          display_area.html(output);
+        }
+        // console.log(output);
       }else if(totalScore >= 0.6 && totalScore <= 0.8){
         var output = core.buildOutput(warning);
         output = output + "it's <strong>Very Likely</strong> you'll have parking!</p><br>Your total parking availability score was <strong>"+(totalScore*100)+"</strong></div>";
