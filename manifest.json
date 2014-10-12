@@ -10,13 +10,14 @@
   "permissions" : [
   "https://maps.googleapis.com/*",
   "https://api.parkwhiz.com/*",
-  "geolocation"
+  "geolocation",
+  "tabs"
   ],
 
   "browser_action" : {
     "default_icon" : "img/icon.png",
     "default_popup" : "ext/index.html"
-    },
+  },
 
-    "content_security_policy": "script-src 'self' 'unsafe-eval' https://*.googleapis.com/ https://maps.gstatic.com/ https://*.parkwhiz.com/; object-src 'self'; connect-src https://maps.googleapis.com"
+  "content_security_policy": "script-src 'self' 'unsafe-eval' https://*.googleapis.com/ https://maps.gstatic.com/ https://*.parkwhiz.com/; object-src 'self'; connect-src https://maps.googleapis.com"
   }

@@ -38,3 +38,16 @@ body,*/
   height: 260px; margin: 0; padding: 0;
 }
 
+.main_form{
+  padding-left: 150px;
+
+}
+
+.main_btn{
+  padding-top: 120px;
+  padding-right: 100px;
+}
+
+.main{
+  padding-bottom:20px;
+}

@@ -4,7 +4,6 @@ window.addEventListener('load', function(){
 
 });
 
-
 var ext = {
 
   init:function(){
@@ -26,6 +25,17 @@ var ext = {
 
     core.getData(end,timeOfDay,"ext");
 
-  }
+  },
 
 };
+
+
+document.addEventListener("DOMContentLoaded", function(event) {
+  // console.log("DOM fully loaded and parsed");
+  // document.getElementById("webview").addEventListener('onclick', );
+
+  $('#webview').click(chrome.tabs.create({ url: "http://claudiusmbemba.com/dev/parkingpredictor/" }));
+
+
+});
+

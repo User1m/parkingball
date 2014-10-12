@@ -20,6 +20,7 @@
 </style>
 <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap.css">
 <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+<script src="../bower_components/jquery/dist/jquery.js"></script>
 <script type="text/javascript" src="../js/core.js"></script>
 <script type="text/javascript" src="../js/chrome_ext.js"></script>
 </head>
@@ -29,24 +30,28 @@
             <![endif]-->
 
             <!-- Add your site or application content here -->
-            <div style="padding-bottom:20px;" class="center">
-              <h2>Parking Predictor</h2>
+            <div class="row main">
+              <div class="center col-xs-9 main_form">
+                <h2>Parking Predictor</h2>
 
-              <fieldset>
-                Start: <input type="text" placeholder="Columbus, OH" value="" id="start" required/><br>
+                <fieldset>
+                  Start: <input type="text" placeholder="Columbus, OH" value="" id="start" required/><br>
 
-                Destination: <input type="text" placeholder="Atlanta, GA" value="" id="end" required/><br>
+                  Destination: <input type="text" placeholder="Atlanta, GA" value="" id="end" required/><br>
 
-                At: <input type="time" id="time" required/>
+                  At: <input type="time" id="time" required/>
 
-                <input type="submit"  class="btn btn-primary"value="Enter"  id="submit" />
-              </fieldset>
+                  <input type="submit"  class="btn btn-primary"value="Enter"  id="submit" />
+                </fieldset>
+              </div>
+              <div class="col-xs-3 main_btn">
+                <button id="webview" class="btn btn-default">FullView</button>
+              </div>
             </div>
 
             <div id="ext_map_canvas"></div>
             <div id="ext_result_area"></div>
 
-            <script src="../bower_components/jquery/dist/jquery.js"></script>
             <script type="text/javascript" src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
           </body>
           </html>

@@ -147,7 +147,7 @@ var core = {
       type: "GET",
       crossDomain: true, // enable this
       dataType: 'jsonp',
-      success: function(data){ predictParking(data, time, version); }, //closure function - can pass param in deeper
+      success: function(data){ predictParking(data, dest, time, version); }, //closure function - can pass param in deeper
       error: function(){ console.log('get Data Failed!'); }
     });
 
@@ -171,12 +171,12 @@ var core = {
     if(currDay == 0 || currDay == 6){
       //weekend
       hours = weekendHours[rand];
-      output = "Well then I would recommend visiting "+dest+" on a weekend between the hours of "+hours+" when there's a higher likelihood that you'll have parking!";
+      output = "Well I would recommend visiting "+dest+" on a weekend between the hours of "+hours+", when there's a higher likelihood that you'll have parking!";
 
     }else{
       //weekday
       hours = weekDayHours[rand];
-      output = "Well then I would recommend visiting "+dest+" on a weekday between the hours of "+hours+" when there's a higher likelihood that you'll have parking!";
+      output = "Well I would recommend visiting "+dest+" on a weekday between the hours of "+hours+", when there's a higher likelihood that you'll have parking!";
     }
 
     return output;
@@ -191,7 +191,7 @@ var core = {
   /*
   * Method predicts the availability of parking around a destinaion
   */
-  function predictParking(data, time, version){
+  function predictParking(data, dest, time, version){
 
     var result;
 
@@ -266,7 +266,8 @@ var core = {
         if(version == "app"){
           output = output + "it's <strong>VERY UNLIKELY</strong> you'll have parking!<br>Your total Parking Availability Score <strong>(P.A.S)</strong> was <strong>"+(totalScore*100)+"</strong><br>Would you like me to pull up an alternate route using transit transportation, which doesn't require parking? <strong><a onclick=\"app.altRoute('y');\" class=\"alert-link\">YES</a></strong>/<strong><a onclick=\"app.altRoute('n');\" class=\"alert-link\">NO</a></strong></p></div>";
         }else{
-          output = output + "it's <strong>VERY UNLIKELY</strong> you'll have parking!<br>Your total Parking Availability Score <strong>(P.A.S)</strong> was <strong>"+(totalScore*100)+"</strong></p></div>";
+          var recommendation = core.recommend(unescape(dest));
+          output = output + "it's <strong>VERY UNLIKELY</strong> you'll have parking!<br>Your total Parking Availability Score <strong>(P.A.S)</strong> was <strong>"+(totalScore*100)+"</strong><br>"+recommendation+"</p></div>";
         }
 
         display_area.html(output);
