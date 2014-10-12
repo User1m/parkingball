@@ -241,8 +241,8 @@ var core = {
     console.log("destination result: "+result);
 
     //calculate score
-    var totalScore = (wD/deNom) + (ToD/deNom) + (season/deNom) + (result/deNom);
-    // var totalScore = 0.495;
+    // var totalScore = (wD/deNom) + (ToD/deNom) + (season/deNom) + (result/deNom);
+    var totalScore = 0.495;
 
     // console.log(totalScore);
 
