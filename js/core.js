@@ -72,15 +72,15 @@ var core = {
 
     //determine value based on current weekday
     switch( weekDay ){
-      case 0:
       case 1:
       case 2:
       case 3:
       case 4:
+      case 5:
       result = 0.1; //40% of 0.042
       break;
 
-      case 5:
+      case 0:
       case 6:
       result = 0.15; //40% of 0.042
       break;
@@ -158,7 +158,30 @@ var core = {
   */
 
   recommend: function(dest){
-    alert("You should visit "+dest+" on Weekend evenings");
+    // alert("You should visit "+dest+" on Weekend evenings");
+
+    var currDate = this.getTheDate();
+    currDay = currDate.getDay();
+
+    var weekDayHours = ["12am-5am", "4pm-8pm", "9pm-11pm"];
+    var weekendHours = ["12am-5am", "7am-12pm", "1pm-3pm", "9pm-11pm"];
+
+    var rand, output, hours;
+
+    if(currDay == 0 || currDay == 6){
+      //weekend
+      rand = Math.floor(Math.random()*4);
+      hours = weekendHours[rand];
+      output = "Well then I would recommend visiting "+dest+" on a weekend between the hours of "+hours+" when there's a higher likelihood that you'll have parking!";
+
+    }else{
+      //weekday
+      rand = Math.floor(Math.random()*3);
+      hours = weekDayHours[rand];
+      output = "Well then I would recommend visiting "+dest+" on a weekday between the hours of "+hours+" when there's a higher likelihood that you'll have parking!";
+    }
+
+    return output;
 
   }
 
@@ -220,8 +243,8 @@ var core = {
     console.log("destination result: "+result);
 
     //calculate score
-    var totalScore = (wD/deNom) + (ToD/deNom) + (season/deNom) + (result/deNom);
-    // var totalScore = 0;
+    // var totalScore = (wD/deNom) + (ToD/deNom) + (season/deNom) + (result/deNom);
+    var totalScore = 0;
 
     // console.log(totalScore);
 

@@ -101,9 +101,11 @@ initialize: function() {
 
  /*
   * Brings up alternate transit info if user requests
+  * response: 'y' or 'n' param
   */
   altRoute: function(response){
 
+    var output;
     end = end.toUpperCase();
 
     if(response == "y"){
@@ -120,10 +122,14 @@ initialize: function() {
         dirDisplay.setPanel(document.getElementById("directions_area"));
       }
     });
-    document.getElementById("result_area").innerHTML="<div class=\"alert alert-info\" role=\"alert\"><strong>Here is a route to "+end+" using transit. It's a much greener option and certainly doesn't require parking!</strong></div>";
+
+    document.getElementById("result_area").innerHTML="<div class=\"alert alert-info alert-dismissible\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button><strong>Here is a route to "+end+" using transit. It's a much greener option and certainly doesn't require parking!</strong></div>";
     return false;
   }else{
-    document.getElementById("result_area").innerHTML="<div class=\"alert alert-info\" role=\"alert\"><strong>Well then I would recommend visiting "+end+" on a weekend evening when there's a higher likelihood that you'll have parking!</strong></div>";
+
+    output = core.recommend(end);
+
+    document.getElementById("result_area").innerHTML="<div class=\"alert alert-info alert-dismissible\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button><strong> "+output+" </strong></div>";
     return false;
   }
 }
