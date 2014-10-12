@@ -2,6 +2,9 @@ window.addEventListener('load', function(){
 
   document.getElementById('submit').addEventListener('click', ext.init);
 
+  $('#webview').click(chrome.tabs.create({ url: "http://claudiusmbemba.com/dev/parkingpredictor/" }));
+
+
 });
 
 var ext = {
@@ -22,6 +25,7 @@ var ext = {
     var output =  "<iframe width=\"600\" height=\"250\" frameborder=\"0\" style=\"border:0\" src=\"https://www.google.com/maps/embed/v1/directions?key=AIzaSyBuktrfAE2xOQjTT8LpK9cxm80aPgRxYvk&origin="+start+" &destination="+end+"\"></iframe>";
 
     map.html(output);
+    // console.log(output);
 
     core.getData(end,timeOfDay,"ext");
 
@@ -30,12 +34,11 @@ var ext = {
 };
 
 
-document.addEventListener("DOMContentLoaded", function(event) {
-  // console.log("DOM fully loaded and parsed");
-  // document.getElementById("webview").addEventListener('onclick', );
-
-  $('#webview').click(chrome.tabs.create({ url: "http://claudiusmbemba.com/dev/parkingpredictor/" }));
+// document.addEventListener("DOMContentLoaded", function(event) {
+//   // console.log("DOM fully loaded and parsed");
+//   // document.getElementById("webview").addEventListener('onclick', );
 
 
-});
+
+// });
 
