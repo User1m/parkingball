@@ -164,19 +164,17 @@ var core = {
     currDay = currDate.getDay();
 
     var weekDayHours = ["12am-5am", "4pm-8pm", "9pm-11pm"];
-    var weekendHours = ["12am-5am", "7am-12pm", "1pm-3pm", "9pm-11pm"];
+    var weekendHours = ["12am-5am", "7am-12pm", "1pm-3pm"];
 
-    var rand, output, hours;
+    var rand = Math.floor(Math.random()*3), output, hours;
 
     if(currDay == 0 || currDay == 6){
       //weekend
-      rand = Math.floor(Math.random()*4);
       hours = weekendHours[rand];
       output = "Well then I would recommend visiting "+dest+" on a weekend between the hours of "+hours+" when there's a higher likelihood that you'll have parking!";
 
     }else{
       //weekday
-      rand = Math.floor(Math.random()*3);
       hours = weekDayHours[rand];
       output = "Well then I would recommend visiting "+dest+" on a weekday between the hours of "+hours+" when there's a higher likelihood that you'll have parking!";
     }
@@ -244,7 +242,7 @@ var core = {
 
     //calculate score
     // var totalScore = (wD/deNom) + (ToD/deNom) + (season/deNom) + (result/deNom);
-    var totalScore = 0;
+    var totalScore = 0.495;
 
     // console.log(totalScore);
 

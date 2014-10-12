@@ -31,9 +31,9 @@ destination is....So that you can know before you go.
 ParkingBall aims to make parking in major cities like LA:
 
 1. Less demanding
-> > - it is our goal to provide users with the next best alternative form of transportation that
+ - it is our goal to provide users with the next best alternative form of transportation that
 doesn't require parking
 
 2. More usable
-> > - users will prioritize parking in their daily trip planning
-> > - and they'll be better able to predict the availability of parking
+ - users will prioritize parking in their daily trip planning
+ - and they'll be better able to predict the availability of parking
