@@ -10,15 +10,14 @@ Parking Predictor is a  chrome extension & web application that prompts you to c
 
 Parking Predictor will determine how likely you are to find parking where ever your destination is and advise you on what actions to take. For example, if Parking Predictor deems you are "very unlikely to find parking" it will suggest other alternative modes of transportation to  take that same day that don't require parking. Or it will give you a suggestion of a better time and day to visit that particular location.
 
-In this app I created my own algorithm to take into account several factors such as time of day, weekday, popularity of the destination, and season. All those variables are factored in determine "how likely you are to get a parking spot".
+In this app the algorithm to take into account several factors such as time of day, weekday, popularity of the destination, and season. All those variables are factored in determine how likely you are to get a parking spot.
 
 Parking Predictor aims to make parking in major cities:
 
 1. Less demanding
-  - it is our goal to provide users with the next best alternative form of transportation that doesn't require parking
+  - it is a goal to provide users with the next best alternative form of transportation that doesn't require parking
 
 2. More usable
- - users will prioritize parking in their daily trip planning
- - and they'll be better able to predict the availability of parking
+ - users will prioritize parking in their daily trip planning and avoid driving to destinations with low parking availability
 
 Parking Predictor - Your crystal ball guide into the availability of parking where ever your destination is....So that you can know before you go.
